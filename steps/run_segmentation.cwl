@@ -1,4 +1,6 @@
-cwlVersion: v1.1
+cwlVersion: v1.2
+$namespaces:
+  cwltool: "http://commonwl.org/cwltool#"
 class: CommandLineTool
 label: Run segmentation
 
@@ -6,7 +8,11 @@ requirements:
   DockerRequirement:
     dockerPull: hubmap/segmentations:1.2.3
     dockerOutputDirectory: "/output"
-  DockerGpuRequirement: {}
+  cwltool:CUDARequirement:
+    cudaComputeCapability: '3.0'
+    cudaDeviceCountMax: 8
+    cudaDeviceCountMin: 1
+    cudaVersionMin: '11.4'
   NetworkAccess:
     networkAccess: true
 
